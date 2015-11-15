@@ -1,14 +1,14 @@
 package main
 
 import (
+	"errors"
 	"io/ioutil"
 	"log"
+	"math/rand"
+	"path"
 	"strconv"
 	"strings"
-	"path"
-	"math/rand"
 	"time"
-	"errors"
 )
 
 /*
@@ -75,4 +75,3 @@ func GetContentOfRandomManPage(section []int, available map[int][]string) (strin
 	}
 	return string(content), nil
 }
-

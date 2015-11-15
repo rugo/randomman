@@ -8,20 +8,20 @@ import (
 )
 
 var (
-	defBasepath = "man_pages"
-	defSections = []int{1, 4, 8}
-    availableManPages = map[int][]string{}
+	defBasepath       = "man_pages"
+	defSections       = []int{1, 4, 8}
+	availableManPages = map[int][]string{}
 )
 
 func manHandler(w http.ResponseWriter, r *http.Request) {
 	sections := defSections
 	if secs, ok := r.URL.Query()["sections"]; ok {
 		sections = []int{}
-        for _, sec := range secs {
-            num, _ := strconv.Atoi(sec)
-            sections = append(sections, num)    
-        }
-        
+		for _, sec := range secs {
+			num, _ := strconv.Atoi(sec)
+			sections = append(sections, num)
+		}
+
 	}
 	randomPage, err := GetContentOfRandomManPage(sections, availableManPages)
 	if err != nil {
