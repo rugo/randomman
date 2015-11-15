@@ -4,9 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"strings"
 	"strconv"
-	"log"
 )
 
 var (
@@ -19,13 +17,11 @@ func manHandler(w http.ResponseWriter, r *http.Request) {
 	sections := defSections
 	if secs, ok := r.URL.Query()["sections"]; ok {
 		sections = []int{}
-		for _, sec := range strings.Split(secs[0], ",") {
-			secNum, err := strconv.Atoi(sec)
-			if err != nil {
-				log.Print(err)
-			}
-			sections = append(sections, secNum)
-		}
+        for _, sec := range secs {
+            num, _ := strconv.Atoi(sec)
+            sections = append(sections, num)    
+        }
+        
 	}
 	randomPage, err := GetContentOfRandomManPage(sections, availableManPages)
 	if err != nil {
